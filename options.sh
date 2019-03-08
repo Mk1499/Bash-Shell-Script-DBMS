@@ -37,7 +37,7 @@ DBoptions(){
             ;;
             
             4)
-                dropTable
+                dropTable $dbName
             ;;
             
             

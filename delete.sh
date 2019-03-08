@@ -2,10 +2,15 @@
 source ./show.sh
 
 dropDB(){
+    
     flag=1
     showDB
     echo "Choose Database To Drop"
     read dbName
+    if [ -z $dbName ]
+    then
+    echo "Please Insert Valid Database Name"
+    else
     if [[ -d ./databases/$dbName ]]
     then
         clear
@@ -16,7 +21,7 @@ dropDB(){
         until [ flag = 0 ]
         do
             case $answer in
-                [Yy]* )
+                [Yy] )
                     rm -r ./databases/$dbName
                     if [[ $? == 0 ]]
                     then
@@ -24,7 +29,7 @@ dropDB(){
                     fi
                     break
                 ;;
-                [Nn]* )
+                [Nn] )
                     echo "Canceled"
                     break
                 ;;
@@ -40,11 +45,13 @@ dropDB(){
         echo "Database does Not Exist"
         dropDB
     fi
+    fi
 }
 
 dropTable(){
+    dbName="$1"
     flag=1
-    showTables
+    showTables $dbName
     echo "Choose Table To Drop"
     read tableName
     if [[ -d ./databases/$dbName/$tableName ]]
@@ -57,7 +64,7 @@ dropTable(){
         until [ flag = 0 ]
         do
             case $answer in
-                [Yy]* )
+                [Yy] )
                     rm -r ./databases/$dbName/$tableName
                     if [[ $? == 0 ]]
                     then
@@ -65,7 +72,7 @@ dropTable(){
                     fi
                     break
                 ;;
-                [Nn]* )
+                [Nn] )
                     echo "Canceled"
                     break
                 ;;

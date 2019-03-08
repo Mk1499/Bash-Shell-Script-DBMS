@@ -3,11 +3,12 @@ source ./options.sh
 source ./show.sh
 
 useDB(){
-  if [ ! -z "$1" ]
+  dbName="$1"
+  if [ ! -z $dbName ]
  
   then
-  echo " Selected Database : $1"
-  DBoptions "$1"
+  echo " Selected Database : $dbName"
+  DBoptions $dbName
  
  else
   showDB
