@@ -3,9 +3,10 @@
 source ./show.sh
 source ./createTable.sh
 source ./insert.sh
+source ./delete.sh
 
 DBoptions(){
-    
+    dbName="$1"
     loop=1
     while [ $loop -eq 1 ]
     do
@@ -24,11 +25,11 @@ DBoptions(){
         
         case $choice in
             1)
-                showTables "$1"
+                showTables $dbName
             ;;
             
             2)
-                CreateTable
+                CreateTable $dbName
             ;;
             
             3)
@@ -36,20 +37,19 @@ DBoptions(){
             ;;
             
             4)
-                showTables
-                droptable
+                dropTable
             ;;
             
             
             5)
-                showTables "$1"
-                insertRecord "$1"
+                showTables $dbName
+                insertRecord $dbName
             ;;
             
             
             6)
-                showTables
-                editrecord
+                showTables $dbName
+                editrecord $dbName
             ;;
             
             00)

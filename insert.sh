@@ -1,97 +1,99 @@
 checkConstrains(){
 
-
+dbName=$1
+tableName=$2
     
-           colName=$(echo "$j" | cut -d ":" -f 1)
-           colDataType=$(echo "$j" | cut -d ":" -f 2)
-          thirdfield=$(echo "$j" | cut -d ":" -f 3)
-          fourthfield=$(echo "$j" | cut -d ":" -f 4)
-         fifthfield=$(echo "$j" | cut -d ":" -f 5)
-         sixtfield=$(echo "$j" | cut -d ":" -f 6)
+ colName=$(echo "$j" | cut -d ":" -f 1)
+ colDataType=$(echo "$j" | cut -d ":" -f 2)
+ primary=$(echo "$j" | cut -d ":" -f 3)
 
-
-    read -p "enter the new value of $colName" colVal
-    if [[ "$colDataType" = number ]]
+    read -p "enter the new value of $colName " colVal
+    if [[ "$colDataType" = integer ]]
     then
-       if [[ "$colVal" =~ ^[0-9]+$  || "$colVal" =~ ^$ ]]
+       if [[ "$colVal" =~ ^[0-9]+$ ]]
         then
-         checkthirdfield
+        checkprimary $dbName $tableName $primary 
        else
         echo "invalid for $colName"
-        checkConstrains
+        checkConstrains $dbName $tableName
        fi
     fi
 
     if [[ "$colDataType" = string ]]
     then
-      if [[ "$colVal" =~ ^[a-zA-Z]+ || "$colVal" =~ ^$ ]]
+      if [[ "$colVal" =~ ^[a-zA-Z]+$ ]]
        then
-        checkthirdfield
+        checkprimary $dbName $tableName $primary
       else
         echo "invalid for $colName"
-        checkConstrains
+        checkConstrains $dbName $tableName
       fi
     fi
     
 }
 
-checkthirdfield(){
-  flag=1
+checkprimary(){
 
-    if [[ "$thirdfield" = pk ]]
+dbName="$1"
+tableName="$2"
+primary="$3"
+readyToRecord=1
+
+    if [[ "$primary" = pk ]]
            then
+           #check if user put null primary key 
            if [[ "$colVal" != "" ]]
             then
-            exists=$(awk 'BEGIN {FS=":"} {print $1}' ./databases/$dbName/$tableName/$tableName'_data')
+            tableData=$(awk 'BEGIN {FS=":"} {print $1}' ./databases/$dbName/$tableName/$tableName'_data')
 
-            if [[ $exists = "" ]]
+            if [[ $tableData = "" ]]
               then
-               if [[ $editFlag != 1 ]]
-                then
+              
                       echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
                       echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
+                      
+                else 
+
+                # check if primary recorded before 
+               
+                for i in $tableData 
+                do 
+                
+                if [ $i == $colVal ]
+                then
+                echo "duplicated value ,must be unique"
+                checkConstrains $dbName $tableName
+                return 0
                 fi
-            else
-            for i in $exists
-            do
-
-              if [ $i == $colVal ]
-                then
-                 echo "duplicated value ,must be unique"
-                 checkConstrains
-                 flag=1
-                 break
-              else
-                flag=0
-              fi
-            done
-            if [[ $flag = 0 ]]
-              then
-               if [[ $editFlag != 1 ]]
-                then
-               echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
-               echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
-             fi
-            fi
-
-
-
-           fi
-
-
+                
+                done
+                
+                echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
+                      echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
+                fi
+           # if user put null primary key 
           else
             echo "error ! must be a not NULL"
-            checkConstrains
+            readyToRecord=0
+            checkConstrains $dbName $tableName
+            return 0
          fi
 
-    fi
+  
 
 
+else 
+if [ $readyToRecord == 1 ]
+then
+echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
+                      echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
+                      fi
+fi  
 }
 
 insertRecord(){
-  
-  if [[ $(ls ./databases/"$1" ) == "" ]]
+  dbName="$1"
+  if [[ $(ls ./databases/$dbName ) == "" ]]
   then 
   echo " Please Create Tables To Insert Record  "
   return 0
@@ -99,18 +101,18 @@ insertRecord(){
 
   col=0
   read -p "enter table name : " tableName
-  if [ ! -d ./databases/"$1"/$tableName ]
+  if [ ! -d ./databases/$dbName/$tableName ] || [ -z $tableName ]
   then
-    echo "this name is not exists please try again"
-    insertRecord
+    echo "this Table Name not Exist please try again"
+    insertRecord $dbName
   else
-    editFlag=0
-    num= cat ./databases/$dbName/$tableName/$tableName"_"desc | wc -l
+    # editFlag=0
+    # num= cat ./databases/$dbName/$tableName/$tableName"_"desc | wc -l
 
     for j in `cat ./databases/$dbName/$tableName/$tableName'_desc' `
     do
-     ((col++))
-     checkConstrains
+    #  ((col++))
+     checkConstrains $dbName $tableName
 
 
     done

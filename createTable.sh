@@ -2,25 +2,26 @@
 source ./datatype.sh
 source ./nullValues.sh
 
-uniquevalue(){
-    echo  "Should $colName values be unique y/n: "
-    read answer
-    clear
-    if [ $answer == 'y' ] || [ $answer == 'Y' ]
-    then
-        echo ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
-    elif [ $answer == 'n' ] || [ $answer == 'N' ]
-    then
-        echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
-        nullvalue
-    else
-        echo "Not a Valid Option"
-        uniquevalue
-    fi
+# uniquevalue(){
+#     echo  "Should $colName values be unique y/n: "
+#     read answer
+#     clear
+#     if [ $answer == 'y' ] || [ $answer == 'Y' ]
+#     then
+#         echo ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
+#     elif [ $answer == 'n' ] || [ $answer == 'N' ]
+#     then
+#         echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
+#         nullvalue
+#     else
+#         echo "Not a Valid Option"
+#         uniquevalue
+#     fi
     
-}
+# }
 
 CreateTable(){
+    dbName="$1"
     echo "Enter Table Name : "
     echo ""
     read tableName
@@ -83,8 +84,8 @@ CreateTable(){
                 echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
                 dataType
                 echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
-                uniquevalue
-                nullvalue
+                # uniquevalue
+                # nullvalue
             fi
         done
         echo ""
