@@ -6,10 +6,10 @@ nullvalue(){
     read answer
     if [ $answer == 'y' || $answer == 'Y']
     then
-        echo -e ":Null" >> ./database/$dbName/$tableName/$tableName"_"desc
+        echo -e ":Null" >> ./databases/$dbName/$tableName/$tableName"_"desc
     elif [ $answer == 'n' || $answer == 'N' ]
     then
-        echo  -e ":NotNull" >> ./database/$dbName/$tableName/$tableName"_"desc
+        echo  -e ":NotNull" >> ./databases/$dbName/$tableName/$tableName"_"desc
         nullvalue
     else
         echo "Not a Valid Option"
@@ -22,10 +22,10 @@ uniquevalue(){
     read answer
     if [ $answer -eq 'y' || $answer -eq 'Y']
     then
-        echo -e ":unique" >> ./database/$dbName/$tableName/$tableName"_"desc
+        echo -e ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
     elif [ $answer -eq 'n' || $answer -eq 'N' ]
     then
-        echo  -e ":" >> ./database/$dbName/$tableName/$tableName"_"desc
+        echo  -e ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
         nullvalue
     else
         echo "Not a Valid Option"
@@ -79,10 +79,10 @@ CreateTable(){
                     echo "Column Name Can't Be Empty"
                 done
                 #-n to remove \n from input
-                echo -n $colName >> ./database/$dbName/$tableName/$tableName"_"desc
-                datatype
+                echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
+                dataType
                 #-e to escape backslash
-                echo -e ":pk" >> ./database/$dbName/$tableName/$tableName"_"desc
+                echo -e ":pk" >> ./databases/$dbName/$tableName/$tableName"_"desc
             else
                 echo "enter the name of column $i : "
                 read colName
@@ -90,9 +90,9 @@ CreateTable(){
                 do
                     echo "Column Name Can't Be Empty"
                 done
-                echo -n $colName >> ./database/$dbName/$tableName/$tableName"_"desc
-                datatypeSelect
-                echo -e -n ":" >> ./database/$dbName/$tableName/$tableName"_"desc
+                echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
+                dataType
+                echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
                 uniquevalue
             fi
         done
