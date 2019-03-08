@@ -5,6 +5,7 @@ source ./nullValues.sh
 uniquevalue(){
     echo  "Should $colName values be unique y/n: "
     read answer
+    clear
     if [ $answer == 'y' ] || [ $answer == 'Y' ]
     then
         echo ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
@@ -23,6 +24,7 @@ CreateTable(){
     echo "Enter Table Name : "
     echo ""
     read tableName
+    clear
     
     if [[ $tableName == '' ]]
     then
@@ -41,6 +43,7 @@ CreateTable(){
         echo "Enter Number Of Columns : "
         echo ""
         read colNum
+        clear
         # if [[ $colNum -eq 0 ]]
         # then
         
@@ -50,6 +53,7 @@ CreateTable(){
             echo "Enter Number Of Columns : "
             echo ""
             read colNum
+            clear
         done
         # fi
         #seq to print number of lines in file according to number of columns
@@ -59,6 +63,7 @@ CreateTable(){
             then
                 echo "Enter Primary Key Column Name: "
                 read colName
+                clear
                 while [[ colName == '' ]]
                 do
                     echo "Column Name Can't Be Empty"
@@ -79,6 +84,7 @@ CreateTable(){
                 dataType
                 echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
                 uniquevalue
+                nullvalue
             fi
         done
         echo ""

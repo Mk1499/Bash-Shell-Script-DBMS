@@ -8,6 +8,7 @@ dataType(){
         echo "1-datatype is string"
         echo "2-datatype is integer"
         read colType
+        clear
         case $colType in
             1)
                 echo -e -n ":string" >> ./databases/$dbName/$tableName/$tableName"_"desc

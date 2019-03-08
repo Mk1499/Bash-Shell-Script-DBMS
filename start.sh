@@ -1,16 +1,17 @@
 #!/bin/bash
 source ./useDB.sh
 source ./createDB.sh
-
+source ./options.sh
+source ./delete.sh
 
 if [[ ! -d ./databases ]]
 then
     mkdir ./databases
 fi
 
-
 while true
 do
+    
     echo "========================"
     echo "1-create new database"
     echo "2-use database"
@@ -22,6 +23,7 @@ do
     case $choice in
         1)
             createDB
+            DBoptions
         ;;
         
         2)
@@ -33,6 +35,7 @@ do
             fi
         ;;
         3)
+            clear
             dropDB
         ;;
         
@@ -44,6 +47,5 @@ do
             echo wrong entry
         ;;
     esac
+    
 done
-
-# createDB

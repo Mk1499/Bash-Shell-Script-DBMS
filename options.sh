@@ -2,8 +2,9 @@
 
 source ./show.sh
 source ./createTable.sh
+source ./delete.sh
 
-options(){
+DBoptions(){
     
     loop=1
     while [ $loop -eq 1 ]
@@ -35,8 +36,7 @@ options(){
             ;;
             
             4)
-                showTables
-                droptable
+                dropTable
             ;;
             
             
@@ -53,6 +53,7 @@ options(){
             
             00)
                 loop=0
+                clear
             ;;
             
             *)
