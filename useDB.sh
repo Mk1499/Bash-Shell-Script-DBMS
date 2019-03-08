@@ -12,7 +12,7 @@ useDB(){
  else
   showDB
   read -p "enter the database you want to use : " dbName
-  if [ ! -d ./databases/$dbName ]
+  if [ ! -d ./databases/$dbName ] || [ -z $dbName ]
   then
     echo "not a valid existing database name please try again "
     useDB
