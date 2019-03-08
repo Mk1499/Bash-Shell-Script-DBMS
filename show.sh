@@ -9,6 +9,6 @@ showDB(){
 showTables(){
   echo "======================="
   echo "existing tables :"
-  echo $(ls ./databases/$dbName)
+  echo $(ls ./databases/"$1")
   echo "======================="
 }

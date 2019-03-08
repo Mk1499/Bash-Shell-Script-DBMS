@@ -1,13 +1,13 @@
 #!/bin/bash
 source ./useDB.sh
 source ./createDB.sh
-source ./myFun.sh
+
 
 if [[ ! -d ./databases ]]
   then
 mkdir ./databases
 fi
-fun
+
 
 while true
 do

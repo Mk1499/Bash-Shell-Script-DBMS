@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./show.sh
+
 options(){
 
  loop=1
@@ -19,7 +21,7 @@ options(){
 
     case $choice in
     1)
-      showTables
+      showTables "$1"
       ;;
 
     2)
