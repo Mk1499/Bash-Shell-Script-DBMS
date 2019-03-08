@@ -2,11 +2,13 @@
 
 source ./show.sh
 source ./createTable.sh
+
 options(){
     
     loop=1
     while [ $loop -eq 1 ]
     do
+        
         echo "===================="
         echo "1-show tables"
         echo "2-create new table"
