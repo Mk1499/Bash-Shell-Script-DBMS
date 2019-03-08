@@ -11,6 +11,7 @@ fi
 
 while true
 do
+clear
 echo "========================"
 echo "1-create new database"
 echo "2-use database"

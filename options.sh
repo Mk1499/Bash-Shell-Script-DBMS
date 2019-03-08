@@ -2,6 +2,7 @@
 
 source ./show.sh
 source ./createTable.sh
+source ./insert.sh
 
 DBoptions(){
     
@@ -15,7 +16,7 @@ DBoptions(){
         echo "3-update table"
         echo "4-delete table "
         echo "5-insert record"
-        echo "6-delete  record"
+        echo "6-delete record"
         echo "00-back"
         
         
@@ -41,8 +42,8 @@ DBoptions(){
             
             
             5)
-                showTables
-                insertRecord
+                showTables "$1"
+                insertRecord "$1"
             ;;
             
             
