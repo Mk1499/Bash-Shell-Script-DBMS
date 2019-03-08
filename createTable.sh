@@ -4,13 +4,12 @@ source ./datatype.sh
 nullvalue(){
     echo  "Should $colName Accept null values y/n: "
     read answer
-    if [ $answer == 'y' || $answer == 'Y']
+    if [ $answer=='y' ] || [ $answer=='Y' ]
     then
         echo -e ":Null" >> ./databases/$dbName/$tableName/$tableName"_"desc
-    elif [ $answer == 'n' || $answer == 'N' ]
+    elif [ $answer=='n' ] || [ $answer=='N' ]
     then
         echo  -e ":NotNull" >> ./databases/$dbName/$tableName/$tableName"_"desc
-        nullvalue
     else
         echo "Not a Valid Option"
         nullvalue
@@ -20,12 +19,12 @@ nullvalue(){
 uniquevalue(){
     echo  "Should $colName values be unique y/n: "
     read answer
-    if [ $answer -eq 'y' || $answer -eq 'Y']
+    if [ $answer=='y' ] || [ $answer=='Y' ]
     then
-        echo -e ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
-    elif [ $answer -eq 'n' || $answer -eq 'N' ]
+        echo  ":unique" >> ./databases/$dbName/$tableName/$tableName"_"desc
+    elif [ $answer=='n' ] || [ $answer=='N' ]
     then
-        echo  -e ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
+        echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
         nullvalue
     else
         echo "Not a Valid Option"
