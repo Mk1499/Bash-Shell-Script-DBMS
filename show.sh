@@ -1,14 +1,14 @@
 
 showDB(){
-    echo "======================="
-    echo "existing databases :"
-    echo $(ls ./databases)
-    echo "======================="
+  echo "======================="
+  echo "existing databases :"
+  echo $(ls ./databases)
+  echo "======================="
 }
 
 showTables(){
-    echo "======================="
-    echo "existing tables :"
-    echo $(ls ./databases/$dbName)
-    echo "======================="
+  echo "======================="
+  echo "existing tables :"
+  echo $(ls ./databases/"$1")
+  echo "======================="
 }
