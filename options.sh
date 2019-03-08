@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./show.sh
+source ./createTable.sh
 
 options(){
 
@@ -25,7 +26,7 @@ options(){
       ;;
 
     2)
-      createTable
+      createTable "$1"
       ;;
 
     3)
