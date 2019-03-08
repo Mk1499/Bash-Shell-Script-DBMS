@@ -4,6 +4,7 @@ source ./useDB.sh
 createDB(){
 
   read -p "enter database name : " dbName
+  clear
   if [ -d ./databases/$dbName ]
   then
     echo "this name is already exists please try again"

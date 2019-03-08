@@ -3,7 +3,7 @@
 source ./show.sh
 source ./createTable.sh
 
-options(){
+DBoptions(){
     
     loop=1
     while [ $loop -eq 1 ]
@@ -53,6 +53,7 @@ options(){
             
             00)
                 loop=0
+                clear
             ;;
             
             *)

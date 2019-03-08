@@ -18,6 +18,7 @@ echo "3-drop datbase"
 echo "0-exit"
 
 read -p "enter your choice: " choice
+clear
 
 case $choice in
 1)
