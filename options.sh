@@ -4,6 +4,7 @@ source ./show.sh
 source ./createTable.sh
 source ./insert.sh
 source ./delete.sh
+source ./displayTable.sh
 
 DBoptions(){
     dbName="$1"
@@ -12,13 +13,14 @@ DBoptions(){
     do
         
         echo "===================="
-        echo "1-show tables"
-        echo "2-create new table"
-        echo "3-update table"
-        echo "4-delete table "
-        echo "5-insert record"
-        echo "6-delete record"
-        echo "00-back"
+        echo "1 - Show Tables"
+        echo "2 - Create New Table"
+        echo "3 - Update Table"
+        echo "4 - Delete Table "
+        echo "5 - Insert Record"
+        echo "6 - Delete Record"
+        echo "7 - Display Table"
+        echo "00 - Back"
         
         
         read -p "enter your choice: " choice
@@ -50,6 +52,11 @@ DBoptions(){
             6)
                 showTables $dbName
                 editrecord $dbName
+            ;;
+            
+            7)
+                showTables $dbName
+                displayTable $dbName
             ;;
             
             00)

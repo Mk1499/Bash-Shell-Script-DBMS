@@ -3,6 +3,7 @@ source ./useDB.sh
 source ./createDB.sh
 source ./options.sh
 source ./delete.sh
+source ./show.sh
 
 if [[ ! -d ./databases ]]
 then
@@ -11,14 +12,14 @@ fi
 
 while true
 do
-  clear  
     echo "========================"
-    echo "1-create new database"
-    echo "2-use database"
-    echo "3-drop datbase"
-    echo "0-exit"
+    echo "1 - Create New Database"
+    echo "2 - Use Database"
+    echo "3 - Drop Datbase"
+    echo "4 - Show Databases"
+    echo "0 - Exit"
     
-    read -p "enter your choice: " choice
+    read -p "Enter Your Choice: " choice
     
     case $choice in
         1)
@@ -27,6 +28,7 @@ do
         ;;
         
         2)
+            clear
             if [[ $(ls ./databases ) != "" ]]
             then
                 useDB
@@ -39,11 +41,16 @@ do
             dropDB
         ;;
         
+        4)
+            clear
+            showDB
+        ;;
         0)
             break
         ;;
         
         *)
+            clear
             echo wrong entry
         ;;
     esac

@@ -2,49 +2,51 @@
 source ./show.sh
 
 dropDB(){
-    
+    # bug if enter / as DB name to drop, by drop folder database
     flag=1
     showDB
     echo "Choose Database To Drop"
     read dbName
     if [ -z $dbName ]
     then
-    echo "Please Insert Valid Database Name"
-    else
-    if [[ -d ./databases/$dbName ]]
-    then
         clear
-        echo "WARNING !!! "
-        echo "ALL TABLES & DATA IN THIS $dbName DATABASE WILL BE DELETED !"
-        echo "Are You Sure You Want To drop $dbName ? (Y,N)"
-        read answer
-        until [ flag = 0 ]
-        do
-            case $answer in
-                [Yy] )
-                    rm -r ./databases/$dbName
-                    if [[ $? == 0 ]]
-                    then
-                        echo "Database $dbName Deleted Successfully"
-                    fi
-                    break
-                ;;
-                [Nn] )
-                    echo "Canceled"
-                    break
-                ;;
-                *)
-                    clear
-                    echo "Please Enter Valid Answer (Y,N)"
-                    read answer
-                ;;
-            esac
-        done
-    else
-        clear
-        echo "Database does Not Exist"
+        echo "Please Insert Valid Database Name"
         dropDB
-    fi
+    else
+        if [[ -d ./databases/$dbName ]]
+        then
+            clear
+            echo "WARNING !!! "
+            echo "ALL TABLES & DATA IN THIS $dbName DATABASE WILL BE DELETED !"
+            echo "Are You Sure You Want To drop $dbName ? (Y,N)"
+            read answer
+            until [ flag=0 ]
+            do
+                case $answer in
+                    [Yy] )
+                        rm -r ./databases/$dbName
+                        if [[ $? == 0 ]]
+                        then
+                            echo "Database $dbName Deleted Successfully"
+                        fi
+                        break
+                    ;;
+                    [Nn] )
+                        echo "Canceled"
+                        break
+                    ;;
+                    *)
+                        clear
+                        echo "Please Enter Valid Answer (Y,N)"
+                        read answer
+                    ;;
+                esac
+            done
+        else
+            clear
+            echo "Database does Not Exist"
+            dropDB
+        fi
     fi
 }
 
