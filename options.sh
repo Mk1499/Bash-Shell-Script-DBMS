@@ -7,12 +7,11 @@ source ./delete.sh
 source ./displayTable.sh
 
 DBoptions(){
-    db="$1"
+    dbName="$1"
     loop=1
     while [ $loop -eq 1 ]
     do
-
-        echo "Current Database : $db "    
+   
         echo "===================="
         echo "1 - Show Tables"
         echo "2 - Create New Table"
@@ -28,11 +27,11 @@ DBoptions(){
         
         case $choice in
             1)
-                showTables $db
+                showTables $dbName
             ;;
             
             2)
-                CreateTable $db
+                CreateTable $dbName
                 
             ;;
             
@@ -41,24 +40,24 @@ DBoptions(){
             ;;
             
             4)
-                dropTable $db
+                dropTable $dbName
             ;;
             
             
             5)
-                showTables $db
-                insertRecord $db
+                showTables $dbName
+                insertRecord $dbName
             ;;
             
             
             6)
-                showTables $db
-                editrecord $db
+                showTables $dbName
+                editrecord $dbName
             ;;
             
             7)
-                showTables $db
-                displayTable $db
+                showTables $dbName
+                displayTable $dbName
             ;;
             
             00)

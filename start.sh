@@ -24,7 +24,6 @@ do
     case $choice in
         1)
             createDB
-            DBoptions
         ;;
         
         2)
