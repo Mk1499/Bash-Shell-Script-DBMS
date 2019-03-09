@@ -12,7 +12,7 @@ DBoptions(){
     loop=1
     while [ $loop -eq 1 ]
     do
-   
+        
         echo "===================="
         echo "1 - Show Tables"
         echo "2 - Create New Table"
@@ -21,7 +21,8 @@ DBoptions(){
         echo "5 - Insert Record"
         echo "6 - Delete Record"
         echo "7 - Display Table"
-        echo "8 - Display Record"
+        echo "8 - Display Row"
+        echo "9 - Delete Row"
         echo "00 - Back"
         
         
@@ -63,8 +64,13 @@ DBoptions(){
             ;;
             
             8)
-                # showTables $dbName
+                showTables $dbName
                 displayrow $dbName
+            ;;
+            
+            9)
+                showTables $dbName
+                deleterow $dbName
             ;;
             
             00)
