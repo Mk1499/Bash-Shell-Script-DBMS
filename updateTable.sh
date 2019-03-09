@@ -1,7 +1,13 @@
 source ./insert.sh
 
 alterTable(){
-  $dbName="$1"  
+    
+    if [[ $(ls ./databases/$dbName ) == "" ]]
+    then
+        echo " Please Create Tables To Update  "
+        return 0
+    fi
+
   showTables $dbName
   read -p "enter the table name that you want to alter : " tableName
   if [ ! -d ./databases/$dbName/$tableName ]
@@ -33,12 +39,19 @@ alterTable(){
 
     2)
       read -p "enter the name of the new field  : " colName
+      if [[ $colName =~ ^[1-9a-zA-Z]+$ ]]
+      then
       echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
       datatypeSelect
       echo -e  ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
       
       echo "$colName field is added to $tableName successfully"
+    else 
+    echo "Wrong Col Name"
+    fi
       ;;
+    
+      
 
     3)
     fields=$(awk 'BEGIN {FS=":"} {print $1}' ./databases/$dbName/$tableName/$tableName"_"desc)
@@ -105,8 +118,21 @@ alterTable(){
     echo "$fields"
     echo "=============================="
       read -p "enter the name of field to be deleted  : " colName
+      field=$(sed -n "/^$colName:.*/p" ./databases/$dbName/$tableName/$tableName"_"desc)
+      if [[ $field != "" ]]
+      then
+      thirdfield=$(echo "$field" | cut -d ":" -f 3)
+      if [[ $thirdfield == "pk" ]]
+      then
+      echo "Sorry but you Cann't Delete Primary Key "
+      else
       sed -i '/'$colName'/d' ./databases/$dbName/$tableName/$tableName"_"desc
       echo "$colName column is deleted to $tableName successfully"
+      fi
+      else 
+      echo "Sorry But This Feild Doesn't Excist "
+      
+      fi
       ;;
 
 

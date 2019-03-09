@@ -24,7 +24,7 @@ displayrow(){
         #     echo "column PK can't be empty, try again"
         #     displayrow
         # fi
-        while ! [[ $rowPK =~ ^[1-9] ]]
+        while ! [[ $rowPK =~ ^[1-9a-zA-Z]+$ ]]
         do
             echo "PK can't be empty"
             echo "Enter row PK to Delete"
