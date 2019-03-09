@@ -12,7 +12,7 @@ DBoptions(){
     loop=1
     while [ $loop -eq 1 ]
     do
-        
+   
         echo "===================="
         echo "1 - Show Tables"
         echo "2 - Create New Table"
@@ -34,6 +34,7 @@ DBoptions(){
             
             2)
                 CreateTable $dbName
+                
             ;;
             
             3)
