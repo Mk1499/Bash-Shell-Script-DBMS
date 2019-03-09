@@ -5,6 +5,7 @@ source ./createTable.sh
 source ./insert.sh
 source ./delete.sh
 source ./displayTable.sh
+source ./displayRow.sh
 
 DBoptions(){
     dbName="$1"
@@ -20,6 +21,7 @@ DBoptions(){
         echo "5 - Insert Record"
         echo "6 - Delete Record"
         echo "7 - Display Table"
+        echo "8 - Display Record"
         echo "00 - Back"
         
         
@@ -57,6 +59,11 @@ DBoptions(){
             7)
                 showTables $dbName
                 displayTable $dbName
+            ;;
+            
+            8)
+                # showTables $dbName
+                displayrow $dbName
             ;;
             
             00)

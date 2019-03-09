@@ -7,6 +7,7 @@ displayTable(){
         # echo "existing tables :"
         # echo $(ls ./databases/"$1")
         # echo "======================="
+        # showTables $dbName
         echo "Enter Table Name To Display "
         read tableName
         if [[ $tableName == '' ]]
@@ -15,7 +16,8 @@ displayTable(){
             displayTable
         elif [[ ! -d ./databases/$dbName/$tableName ]]
         then
-            clear
+            # clear
+            echo ""
             echo "Table Doesn't Exist, Choose Another Name"
             displayTable
         else
@@ -46,5 +48,4 @@ displayTable(){
             esac
         fi
     done
-    # showTables
 }
