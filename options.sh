@@ -5,6 +5,7 @@ source ./createTable.sh
 source ./insert.sh
 source ./delete.sh
 source ./displayTable.sh
+source ./updateTable.sh
 
 DBoptions(){
     dbName="$1"
@@ -36,7 +37,7 @@ DBoptions(){
             ;;
             
             3)
-                alterTable
+                alterTable $dbName
             ;;
             
             4)
