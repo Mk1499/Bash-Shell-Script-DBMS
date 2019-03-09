@@ -5,8 +5,9 @@ source ./createTable.sh
 source ./insert.sh
 source ./delete.sh
 source ./displayTable.sh
-source ./updateTable.sh
+source ./alterTable.sh
 source ./displayRow.sh
+source ./updateTable.sh
 
 DBoptions(){
     dbName="$1"
@@ -17,13 +18,14 @@ DBoptions(){
         echo "===================="
         echo "1 - Show Tables"
         echo "2 - Create New Table"
-        echo "3 - Update Table"
+        echo "3 - Alter Table"
         echo "4 - Delete Table "
         echo "5 - Insert Record"
         echo "6 - Delete Record"
         echo "7 - Display Table"
         echo "8 - Display Row"
         echo "9 - Delete Row"
+        echo "10 - Update Data In Table"
         echo "00 - Back"
         
         
@@ -72,6 +74,10 @@ DBoptions(){
             9)
                 showTables $dbName
                 deleterow $dbName
+            ;;
+
+            10)
+                updateTableData $dbName
             ;;
             
             00)
