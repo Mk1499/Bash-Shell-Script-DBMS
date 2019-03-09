@@ -4,7 +4,9 @@ source ./show.sh
 displayTable(){
     while true
     do
-        showTables
+        # echo "existing tables :"
+        # echo $(ls ./databases/"$1")
+        # echo "======================="
         echo "Enter Table Name To Display "
         read tableName
         if [[ $tableName == '' ]]
