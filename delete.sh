@@ -20,7 +20,7 @@ dropDB(){
             echo "ALL TABLES & DATA IN THIS $dbName DATABASE WILL BE DELETED !"
             echo "Are You Sure You Want To drop $dbName ? (Y,N)"
             read answer
-            until [ flag=0 ]
+            until [ flag = 0 ]
             do
                 case $answer in
                     [Yy] )
