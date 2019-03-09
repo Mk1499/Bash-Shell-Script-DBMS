@@ -100,7 +100,7 @@ insertRecord(){
     
     col=0
     read -p "enter table name : " tableName
-    if [ ! -d ./databases/$dbName/$tableName ] || [ -z $tableName ]
+    if [[ ! $tableName =~ ^[0-9a-zA-Z]*$ ]] || [ ! -d ./databases/$dbName/$tableName ] || [ -z $tableName ] 
     then
         echo "this Table Name not Exist please try again"
         insertRecord $dbName

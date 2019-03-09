@@ -27,9 +27,9 @@ CreateTable(){
     read tableName
     clear
     
-    if [[ $tableName == '' ]]
+    if [[ ! $tableName =~ ^[0-9a-zA-Z]*$ ]] || [[ $tableName == '' ]]
     then
-        echo "Table Name Can't Be Empty"
+        echo "Not a Valid Name for Table"
         echo ""
         CreateTable
     elif [[ -d ./databases/$dbName/$tableName ]]
@@ -83,7 +83,7 @@ CreateTable(){
                 done
                 echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
                 dataType
-                echo -e -n ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
+                echo -e  ":" >> ./databases/$dbName/$tableName/$tableName"_"desc
                 # uniquevalue
                 # nullvalue
             fi
