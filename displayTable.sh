@@ -19,7 +19,7 @@ displayTable(){
             echo "Table Doesn't Exist, Choose Another Name"
             displayTable
         else
-            #bug car ./databases//dbname/tablename/tablename_desc no such file or dir
+            #bug cat ./databases//dbname/tablename/tablename_desc no such file or dir
             clear
             
             echo "1 - Diplay Table $tableName Description"
