@@ -2,41 +2,41 @@
 #!/bin/bash
 
 checkprimary(){
-    
+
     dbName="$1"
     tableName="$2"
     primary="$3"
     readyToRecord=1
-    
+
     if [[ "$primary" = pk ]]
     then
         #check if user put null primary key
         if [[ "$colVal" != "" ]]
         then
             tableData=$(awk 'BEGIN {FS=":"} {print $1}' ./databases/$dbName/$tableName/$tableName'_data')
-            
+
             if [[ $tableData = "" ]]
             then
-                
+
                 echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
                 echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
-                
+
             else
-                
+
                 # check if primary recorded before
-                
+
                 for i in $tableData
                 do
-                    
+
                     if [ $i == $colVal ]
                     then
                         echo "duplicated value ,must be unique"
                         checkConstrains $dbName $tableName
                         return 0
                     fi
-                    
+
                 done
-                
+
                 echo -n "$colVal" >> ./databases/$dbName/$tableName/$tableName'_data'
                 echo -n ":" >> ./databases/$dbName/$tableName/$tableName'_data'
             fi
@@ -57,15 +57,15 @@ checkprimary(){
 }
 
 checkConstrains(){
-    
+
     dbName=$1
     tableName=$2
-    
+
     colName=$(echo "$j" | cut -d ":" -f 1)
     colDataType=$(echo "$j" | cut -d ":" -f 2)
     primary=$(echo "$j" | cut -d ":" -f 3)
-    
-    read -p "enter the new value of $colName " colVal
+
+    read -p "enter the value of $colName " colVal
     if [[ "$colDataType" = integer ]]
     then
         if [[ "$colVal" =~ ^[0-9]+$ ]]
@@ -76,7 +76,7 @@ checkConstrains(){
             checkConstrains $dbName $tableName
         fi
     fi
-    
+
     if [[ "$colDataType" = string ]]
     then
         if [[ "$colVal" =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
@@ -87,7 +87,7 @@ checkConstrains(){
             checkConstrains $dbName $tableName
         fi
     fi
-    
+
 }
 
 insertRecord(){
@@ -97,7 +97,7 @@ insertRecord(){
         echo " Please Create Tables To Insert Record  "
         return 0
     fi
-    
+
     col=0
     read -p "enter table name : " tableName
     if [[ ! $tableName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]] || [ ! -d ./databases/$dbName/$tableName ] #|| [ -z $tableName ]
@@ -107,13 +107,15 @@ insertRecord(){
     else
         # editFlag=0
         # num= cat ./databases/$dbName/$tableName/$tableName"_"desc | wc -l
-        
+          echo "Table Data : "
+          echo "====================="
+           cat ./databases/$dbName/$tableName/$tableName"_"data
         for j in ` cat ./databases/$dbName/$tableName/$tableName'_desc' `
         do
             #  ((col++))
             checkConstrains $dbName $tableName
         done
         echo -e "" >> ./databases/$dbName/$tableName/$tableName"_"data
-        
+
     fi
 }

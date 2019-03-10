@@ -51,10 +51,10 @@ CreateTable(){
         clear
         # if [[ $colNum -eq 0 ]]
         # then
-        
-        until [[ $colNum -ne 0 ]]
+
+        until [[ $colNum =~ ^[2-9]+$ ]]
         do
-            echo "Table Should Have at Least One Column"
+            echo "Table Should Have at Least Two Column"
             echo "Enter Number Of Columns : "
             echo ""
             read colNum
@@ -71,7 +71,10 @@ CreateTable(){
                 clear
                 until [[ $colName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
                 do
-                    echo "Column Name Can't Be Empty"
+                    echo "Invalid Primary Key Name"
+                    echo "Enter Primary Key Column Name: "
+                    read colName
+                    clear
                 done
                 #-n to remove \n from input
                 echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
@@ -79,12 +82,47 @@ CreateTable(){
                 #-e to escape backslash
                 echo -e ":pk" >> ./databases/$dbName/$tableName/$tableName"_"desc
             else
-                echo "enter the name of column $i : "
-                read colName
-                # while [[ colName == '' ]]
-                until [[ $colName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
+              tableCols=$(awk 'BEGIN {FS=":"} {print $1}' ./databases/$dbName/$tableName/$tableName'_desc')
+              # z=0
+              #   echo "enter the name of column $i : "
+              #   read colName
+              #   # while [[ colName == '' ]]
+              #   for g in $tableCols
+              #   do
+              #     if [[ $g -eq $colName ]]
+              #      then
+              #       #statements
+              #       z=1
+              #
+              #     else
+              #       z=0
+              #     fi
+              #   done
+              #
+              # until [[ $z -eq 0 ]]
+              #  do
+              #   #statements
+              #   echo "Sorry but repeated name not permited "
+              #   read -p "Enter the Name of col $i : " colName
+              #   for g in $tableCols
+              #   do
+              #     if [[ $g -eq $colName ]]
+              #      then
+              #       #statements
+              #       z=1
+              #
+              #     else
+              #       z=0
+              #     fi
+              #   done
+              # done
+
+                until [[ $colName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]] && [[ ! $tableCols == *"$colName"* ]]
                 do
-                    echo "Column Name Must be String and Start With Charachter"
+                    echo "Column Name Must be String and Start With Charachter and Not Repeated Before"
+                    echo "enter the name of column $i : "
+                    read colName
+                    clear
                 done
                 echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
                 dataType
@@ -99,4 +137,19 @@ CreateTable(){
         echo "========================================="
         echo ""
     fi
+}
+testPrev(){
+  for g in $tableCols
+  do
+    if [[ $g -eq $colName ]]
+     then
+      #statements
+      z="1"
+      break
+    else
+      z="0"
+    fi
+  done
+  echo "Z : $z"
+  echo "ColName: $colName"
 }

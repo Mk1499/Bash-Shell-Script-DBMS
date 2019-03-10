@@ -23,6 +23,9 @@ displayrow(){
         echo "Table Doesn't Exist, Choose Another Name"
         displayrow
     else
+      echo "Table Data : "
+      echo "====================="
+       cat ./databases/$dbName/$tableName/$tableName"_"data
         echo "Enter row PK to Display"
         read rowPK
         # if [[ $rowPK == '' ]]
@@ -43,7 +46,7 @@ displayrow(){
         #         {print "No Row Exist With This PK Value"}
         #     print $num;
         # }' ./databases/$dbName/$tableName/$tableName"_"data
-        
+
         # if grep -q  $rowPK "./databases/$dbName/$tableName/$tableName"_"data"
         # then
         # num=$(awk -v row_num=$rowPK 'BEGIN{ FS = ":"}{ if( NR == row_num ){ print $0} }' ./databases/$dbName/$tableName/$tableName"_"data)
