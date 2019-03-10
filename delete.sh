@@ -7,7 +7,12 @@ dropDB(){
     showDB
     echo "Choose Database To Drop"
     read dbName
-    if [ -z $dbName ]
+    if [[ $dbName == / ]]
+    then
+        clear
+        echo "/ is not a database"
+        dropDB
+    elif [ -z $dbName ]
     then
         clear
         echo "Please Insert Valid Database Name"
@@ -51,12 +56,20 @@ dropDB(){
 }
 
 dropTable(){
-    dbName="$1"
-    flag=1
-    showTables $dbName
+    # dbName="$1"
+    # flag=1
+    # showTables $dbName
     echo "Choose Table To Drop"
     read tableName
-    if [[ -d ./databases/$dbName/$tableName ]]
+    if [[ $tableName == '' ]]
+    then
+        echo "table name can't be empty"
+        dropTable
+    elif [[ $tableName == / ]]
+    then
+        echo "/ is not a table"
+        dropTable
+    elif [[ -d ./databases/$dbName/$tableName ]]
     then
         clear
         echo "WARNING !!! "
@@ -86,7 +99,7 @@ dropTable(){
             esac
         done
     else
-        clear
+        # clear
         echo "Table does Not Exist"
         dropTable
     fi

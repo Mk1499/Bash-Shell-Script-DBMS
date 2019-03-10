@@ -17,7 +17,7 @@ source ./nullValues.sh
 #         echo "Not a Valid Option"
 #         uniquevalue
 #     fi
-    
+
 # }
 
 CreateTable(){
@@ -26,8 +26,12 @@ CreateTable(){
     echo ""
     read tableName
     clear
-    
-    if [[ ! $tableName =~ ^[0-9a-zA-Z]*$ ]] || [[ $tableName == '' ]]
+    if [[ $tableName == / ]]
+    then
+        echo "/ Is Not a Valid Name For Table"
+        echo ""
+        CreateTable
+    elif [[ ! $tableName =~ ^[0-9a-zA-Z]*$ ]] || [[ $tableName == '' ]]
     then
         echo "Not a Valid Name for Table"
         echo ""

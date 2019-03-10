@@ -4,18 +4,25 @@ source ./show.sh
 displayTable(){
     while true
     do
+        
         # echo "existing tables :"
         # echo $(ls ./databases/"$1")
         # echo "======================="
         echo "Enter Table Name To Display "
         read tableName
-        if [[ $tableName == '' ]]
+        if [[ $tableName == / ]]
         then
+            showTables $dbName
+            echo "/ is not a Table Name"
+            displayTable
+        elif [[ $tableName == '' ]]
+        then
+            showTables $dbName
             echo "Table Name Can't Be Empty"
             displayTable
         elif [[ ! -d ./databases/$dbName/$tableName ]]
         then
-            clear
+            showTables $dbName
             echo "Table Doesn't Exist, Choose Another Name"
             displayTable
         else
@@ -32,6 +39,7 @@ displayTable(){
                     # libreoffice ./databases/$dbName/$tableName/$tableName"_"desc
                     clear
                     cat ./databases/$dbName/$tableName/$tableName"_"desc
+                    echo ""
                     break
                 ;;
                 2)
@@ -39,6 +47,7 @@ displayTable(){
                     # libreoffice ./databases/$dbName/$tableName/$tableName"_"data
                     clear
                     cat ./databases/$dbName/$tableName/$tableName"_"data
+                    echo ""
                     break
                 ;;
                 *)
@@ -46,5 +55,7 @@ displayTable(){
             esac
         fi
     done
-    # showTables
+    # echo "existing tables :"
+    # echo $(ls ./databases/"$1")
+    # echo "======================="
 }

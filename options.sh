@@ -46,6 +46,7 @@ DBoptions(){
             ;;
             
             4)
+                showTables $dbName
                 dropTable $dbName
             ;;
             
@@ -75,7 +76,7 @@ DBoptions(){
                 showTables $dbName
                 deleterow $dbName
             ;;
-
+            
             10)
                 updateTableData $dbName
             ;;
