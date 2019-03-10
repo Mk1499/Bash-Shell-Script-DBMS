@@ -79,7 +79,7 @@ checkConstrains(){
     
     if [[ "$colDataType" = string ]]
     then
-        if [[ "$colVal" =~ ^[a-zA-Z]+$ ]]
+        if [[ "$colVal" =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
         then
             checkprimary $dbName $tableName $primary
         else
@@ -100,9 +100,9 @@ insertRecord(){
     
     col=0
     read -p "enter table name : " tableName
-    if [[ ! $tableName =~ ^[0-9a-zA-Z]*$ ]] || [ ! -d ./databases/$dbName/$tableName ] || [ -z $tableName ] 
+    if [[ ! $tableName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]] || [ ! -d ./databases/$dbName/$tableName ] #|| [ -z $tableName ]
     then
-        echo "this Table Name not Exist please try again"
+        echo "This Table Name doesn't Exist, please try again"
         insertRecord $dbName
     else
         # editFlag=0

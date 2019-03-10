@@ -26,7 +26,6 @@ displayTable(){
             echo "Table Doesn't Exist, Choose Another Name"
             displayTable
         else
-            #bug cat ./databases//dbname/tablename/tablename_desc no such file or dir
             clear
             
             echo "1 - Diplay Table $tableName Description"
@@ -54,6 +53,7 @@ displayTable(){
                     echo "Not Valid Option"
             esac
         fi
+        break
     done
     # echo "existing tables :"
     # echo $(ls ./databases/"$1")

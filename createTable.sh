@@ -69,7 +69,7 @@ CreateTable(){
                 echo "Enter Primary Key Column Name: "
                 read colName
                 clear
-                while [[ colName == '' ]]
+                until [[ $colName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
                 do
                     echo "Column Name Can't Be Empty"
                 done
@@ -81,9 +81,10 @@ CreateTable(){
             else
                 echo "enter the name of column $i : "
                 read colName
-                while [[ colName == '' ]]
+                # while [[ colName == '' ]]
+                until [[ $colName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
                 do
-                    echo "Column Name Can't Be Empty"
+                    echo "Column Name Must be String and Start With Charachter"
                 done
                 echo -n $colName >> ./databases/$dbName/$tableName/$tableName"_"desc
                 dataType
