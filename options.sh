@@ -24,8 +24,8 @@ DBoptions(){
         echo "6 - Delete Record"
         echo "7 - Display Table"
         echo "8 - Display Row"
-        echo "9 - Delete Row"
-        echo "10 - Update Data In Table"
+        # echo "9 - Delete Row"
+        echo "9 - Update Data In Table"
         echo "00 - Back"
         
         
@@ -59,7 +59,7 @@ DBoptions(){
             
             6)
                 showTables $dbName
-                editrecord $dbName
+                deleterow $dbName
             ;;
             
             7)
@@ -72,12 +72,12 @@ DBoptions(){
                 displayrow $dbName
             ;;
             
-            9)
-                showTables $dbName
-                deleterow $dbName
-            ;;
+            # 9)
+            #     showTables $dbName
+            #     deleterow $dbName
+            # ;;
             
-            10)
+            9)
                 updateTableData $dbName
             ;;
             
