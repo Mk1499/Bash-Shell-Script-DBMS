@@ -20,36 +20,52 @@ read -p "enter table name : " tableName
    cat ./databases/$dbName/$tableName/$tableName"_"data
    pkColName=$( cat ./databases/$dbName/$tableName/$tableName"_"desc | awk 'BEGIN{FS=":"}NR==1{print $1}' )
     read -p "Enter $pkColName of col you want to Edit: " pk
-  #   echo "======================"
-  #   echo "Tables Cols "
-  #   echo "=========================="
-  #   tail -n +2 ./databases/$dbName/$tableName/$tableName"_"desc | awk 'BEGIN{FS=":"}{print $1}'
-  #
-  #  read -p "Enter Table Col You Want To Edit : " colName
-  #
-  #  field=$(sed -n "/^$colName:.*/p" ./databases/$dbName/$tableName/$tableName"_"desc)
-  #
-  # if [[ $field == "" ]]
-  # then
-  # echo "Sorry but This is Wrong Col Name"
-  # else
-  #  feildNo=$(grep -n $colName ./databases/$dbName/$tableName/$tableName"_"desc | awk 'BEGIN{FS=":"}{print $1}')
-  #
-  #  echo "NO :  $feildNo "
-  #
-  #  fieldToEdit=$(sed -n "/^$pk:.*/p" ./databases/$dbName/$tableName/$tableName"_"data)
-  #  echo "Feild To Edit $fieldToEdit"
-newRecord=""
+   newRecord=""
 
 for l in `cat ./databases/$dbName/$tableName/$tableName"_desc"`
    # sed -i "s/^$pk:.*/"Hello"/" ./databases/pe/l/l_data
    do
-  echo $l
+  # echo $l
+  v="0"
   name=$(echo "$l" | cut -d ":" -f 1)
-  read -p "Enter value of col $name " newVal
+  colDataType=$(echo "$l" | cut -d ":" -f 2)
+  priChk=$(echo "$l" | cut -d ":" -f 3)
+
+  if [[ $priChk = pk ]]
+   then
+    #statements
+    newRecord="${newRecord}$pk:"
+    continue
+  fi
+
+  while [[ $v -eq "0" ]]
+   do
+    read -p "Enter value of col $name " newVal
+    if [[ "$colDataType" = string ]]
+     then
+       if [[ "$newVal" =~ ^[a-zA-Z]+$ ]]
+        then
+         #statements
+         v="1"
+       else
+         echo "Sorry But This Col Must be a string"
+       fi
+     elif [[ "$colDataType" = integer ]]
+     then
+       #statements
+       if [[ "$newVal" =~ ^[0-9]+$ ]]
+       then
+       v="1"
+     else
+       echo "Sorry but this col must be a number"
+       fi
+fi
+  done
+
+
   newRecord="${newRecord}$newVal:"
   done
-echo "Finally : $newRecord"
+echo "New Edited Row : $newRecord"
 sed -i "s/^$pk:.*/$newRecord/" ./databases/$dbName/$tableName/$tableName"_"data
 fi
 
