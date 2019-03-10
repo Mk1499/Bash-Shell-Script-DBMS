@@ -11,7 +11,7 @@ updateTableData(){
     showTables $dbName
 
 read -p "enter table name : " tableName
- if [ ! -d ./databases/$dbName/$tableName ]
+ if [[ ! $tableName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]] || [ ! -d ./databases/$dbName/$tableName ]
  then
     echo "this name is not exists please try again"
    else
@@ -20,6 +20,15 @@ read -p "enter table name : " tableName
    cat ./databases/$dbName/$tableName/$tableName"_"data
    pkColName=$( cat ./databases/$dbName/$tableName/$tableName"_"desc | awk 'BEGIN{FS=":"}NR==1{print $1}' )
     read -p "Enter $pkColName of col you want to Edit: " pk
+    num=$(awk -v row_num=$pk 'BEGIN{ FS = ":"}{ if( row_num == $1 ){ print } }' ./databases/$dbName/$tableName/$tableName"_"data)
+    echo $num
+    if [[ $num = "" ]]
+     then
+      #statements
+      echo "Sorry but this key not found "
+      return 0
+    fi
+
    newRecord=""
 
 for l in `cat ./databases/$dbName/$tableName/$tableName"_desc"`
@@ -43,7 +52,7 @@ for l in `cat ./databases/$dbName/$tableName/$tableName"_desc"`
     read -p "Enter value of col $name " newVal
     if [[ "$colDataType" = string ]]
      then
-       if [[ "$newVal" =~ ^[a-zA-Z]+$ ]]
+       if [[ "$newVal" =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
         then
          #statements
          v="1"

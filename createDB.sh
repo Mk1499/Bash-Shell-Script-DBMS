@@ -2,16 +2,12 @@
 source ./useDB.sh
 
 createDB(){
-    
+
     read -p "enter database name : " dbName
     clear
-    if [[ ! $dbName =~ ^[0-9a-zA-Z]*$ ]]
+    if [[ ! $dbName =~ ^[a-zA-Z]+[a-zA-Z0-9]*$ ]]
     then
         echo "Sorry but this is not a valid database name"
-        createDB
-    elif [[ $dbName =~ [/\//ig] ]]
-    then
-        echo "forward slash"
         createDB
     else
         if [ -d ./databases/$dbName ]
